@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Stylesheet -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/main.css">
+  <title>BOOLFLIX</title>
+</head>
+<body>
+  
+  <input type="text" placeholder="Inserisci titolo film" class="search-movie_input">
+  <button class="search-movie_btn">Cerca</button>
+  <ul class="movie-list"></ul>
+
+  <!-- Template Handlebars -->
+  <script id="movie-template" type="text/x-handlebars-template">
+    <li class="{{ movieClass }}" data-movie="{{ movieData }}">
+      <img src="{{ moviePoster }}" alt="movie">
+      <span>{{ movieTitle }}</span>
+      <span>{{ movieOriginalTitle }}</span>
+      <span>{{ movieOriginalLanguage }}</span>
+      <span>{{ movieVote }}</span>
+    </li>
+  </script>
+
+  <!-- JS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js'></script>
+  <script src="script/main.js"></script>
+
+</body>
+</html>
