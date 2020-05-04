@@ -28,57 +28,58 @@ $(document).ready(function() {
 
   // Al click del bottone viene eseguito il seguente codice
   searchMovieBtn.click(function(){
-    printAPIMovies();
+    printAPIMovies(moviesAPI, searchMovieInput, movieList, template);
   });
 
   searchMovieInput.keyup(function(event){
     if ( event.which == 13 || event.keyCode == 13 ) {
-      printAPIMovies();
+      printAPIMovies(moviesAPI, searchMovieInput, movieList, template);
     }
   });
-
-  /*******************
-  * FUNZIONI
-  *******************/
- 
-  // Funzione che chiama API e stampa i film
-  function printAPIMovies(){
-    // Azzeramento iniziale movieList per visualizzare solo titoli cercati
-    movieList.text('');
-    // Titolo cercato
-    var newMovieSearch = searchMovieInput.val().trim().toLowerCase();
-    // Chiamata AJAX
-    $.ajax({
-      url: moviesAPI,
-      method: 'GET',
-      data: {
-        api_key: '6f57d63573fa7a5d41001c1a27914d68',
-        query: newMovieSearch,
-        language: 'it-IT'
-      },
-      success: function(result){
-        // Array contenente i film
-        var movies = result.results;
-        // Ciclo for per definire gli oggetti di movies e stamparli
-        for ( var i = 0; i < movies.length; i++ ) {
-          // dati degli oggetti
-          var movieInfo = movies[i];
-          // copio i dati nei nuovi oggetti
-          var movieToPrint = {
-            movieTitle: movieInfo.title,
-            movieOriginalTitle: movieInfo.original_title,
-            movieOriginalLanguage: movieInfo.original_language,
-            movieVote: movieInfo.vote_average
-          }
-          // Stampo i nuovi oggetti
-          var html = template(movieToPrint);
-          movieList.append(html);
-        } // Fine ciclo for
-      },
-      error: function(){
-        console.log('Si è verificato un errore');
-      }
-    }); // Fine chiamata AJAX
-  }
   
 }); // End document ready
+
+
+/*******************
+* FUNZIONI
+*******************/
+
+// Funzione che chiama API e stampa i film
+function printAPIMovies(newAPI, newInput, newList, template){
+  // Azzeramento iniziale movieList per visualizzare solo titoli cercati
+  newList.text('');
+  // Titolo cercato
+  var newMovieSearch = newInput.val().trim().toLowerCase();
+  // Chiamata AJAX
+  $.ajax({
+    url: newAPI,
+    method: 'GET',
+    data: {
+      api_key: '6f57d63573fa7a5d41001c1a27914d68',
+      query: newMovieSearch,
+      language: 'it-IT'
+    },
+    success: function(result){
+      // Array contenente i film
+      var movies = result.results;
+      // Ciclo for per definire gli oggetti di movies e stamparli
+      for ( var i = 0; i < movies.length; i++ ) {
+        // dati degli oggetti
+        var movieInfo = movies[i];
+        // copio i dati nei nuovi oggetti
+        var movieToPrint = {
+          movieTitle: movieInfo.title,
+          movieOriginalTitle: movieInfo.original_title,
+          movieOriginalLanguage: movieInfo.original_language,
+          movieVote: movieInfo.vote_average
+        }
+        // Stampo i nuovi oggetti
+        var html = template(movieToPrint);
+        newList.append(html);
+      } // Fine ciclo for
+    },
+    error: function(){
+      console.log('Si è verificato un errore');
+    }
+  }); // Fine chiamata AJAX
+};
