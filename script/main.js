@@ -28,6 +28,9 @@ $(document).ready(function() {
 
   // Al click del bottone viene eseguito il seguente codice
   searchMovieBtn.click(function(){
+    // Azzeramento iniziale movieList per visualizzare solo titoli cercati
+    movieList.text('');
+    // Titolo cercato
     var newMovieSearch = searchMovieInput.val().trim().toLowerCase();
     // Chiamata AJAX
     $.ajax({
