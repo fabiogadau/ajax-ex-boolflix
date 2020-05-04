@@ -28,6 +28,21 @@ $(document).ready(function() {
 
   // Al click del bottone viene eseguito il seguente codice
   searchMovieBtn.click(function(){
+    printAPIMovies();
+  });
+
+  searchMovieInput.keyup(function(event){
+    if ( event.which == 13 || event.keyCode == 13 ) {
+      printAPIMovies();
+    }
+  });
+
+  /*******************
+  * FUNZIONI
+  *******************/
+ 
+  // Funzione che chiama API e stampa i film
+  function printAPIMovies(){
     // Azzeramento iniziale movieList per visualizzare solo titoli cercati
     movieList.text('');
     // Titolo cercato
@@ -64,6 +79,6 @@ $(document).ready(function() {
         console.log('Si è verificato un errore');
       }
     }); // Fine chiamata AJAX
-  });
+  }
   
 }); // End document ready
