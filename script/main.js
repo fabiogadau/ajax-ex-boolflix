@@ -31,6 +31,7 @@ $(document).ready(function() {
     printAPIMovies(moviesAPI, searchMovieInput, movieList, template);
   });
 
+  // Al keyup del tasto Invio viene eseguito il seguente codice
   searchMovieInput.keyup(function(event){
     if ( event.which == 13 || event.keyCode == 13 ) {
       printAPIMovies(moviesAPI, searchMovieInput, movieList, template);
