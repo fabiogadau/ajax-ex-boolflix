@@ -48,9 +48,9 @@ $(document).ready(function() {
 * FUNZIONI
 *******************/
 
-// Funzione che chiama API e stampa i film
+// Funzione che chiama API e stampa film
 function printAPIMovies(newAPI, newInput, newList, template){
-  // Azzeramento iniziale movieList per visualizzare solo titoli cercati
+  // Azzeramento iniziale lista per visualizzare solo titoli cercati
   resetText(newList);
   // Titolo cercato
   var newSearch = newInput.val().trim().toLowerCase();
@@ -64,9 +64,9 @@ function printAPIMovies(newAPI, newInput, newList, template){
       language: 'it-IT'
     },
     success: function(result){
-      // Array contenente i film
+      // Array contenente gli oggetti
       var objects = result.results;
-      // Ciclo for per definire gli oggetti di movies e stamparli
+      // Ciclo for per definire gli oggetti e stamparli
       for ( var i = 0; i < objects.length; i++ ) {
         // dati degli oggetti
         var objectsInfo = objects[i];
@@ -89,8 +89,9 @@ function printAPIMovies(newAPI, newInput, newList, template){
   }); // Fine chiamata AJAX
 };
 
+// Funzione che chiama API e stampa serie tv
 function printAPItv(newAPI, newInput, newList, template){
-  // Azzeramento iniziale movieList per visualizzare solo titoli cercati
+  // Azzeramento iniziale lista per visualizzare solo titoli cercati
   resetText(newList);
   // Titolo cercato
   var newSearch = newInput.val().trim().toLowerCase();
@@ -104,9 +105,9 @@ function printAPItv(newAPI, newInput, newList, template){
       language: 'it-IT'
     },
     success: function(result){
-      // Array contenente i film
+      // Array contenente gli oggetti
       var objects = result.results;
-      // Ciclo for per definire gli oggetti di movies e stamparli
+      // Ciclo for per definire gli oggetti e stamparli
       for ( var i = 0; i < objects.length; i++ ) {
         // dati degli oggetti
         var objectsInfo = objects[i];
@@ -129,6 +130,7 @@ function printAPItv(newAPI, newInput, newList, template){
   }); // Fine chiamata AJAX
 };
 
+// Funzione reset markup
 function resetText(newElement){
   newElement.text('');
 };
