@@ -95,7 +95,7 @@ function printAPIMovies(newAPI, newInput, newList, template){
             var itemToPrint = {
               itemTitle: objectsInfo.title,
               itemOriginalTitle: objectsInfo.original_title,
-              itemOriginalLanguage: objectsInfo.original_language,
+              itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
               itemVote: getStarsVote(objectsInfo.vote_average),
               itemType: 'Film'
             }
@@ -150,7 +150,7 @@ function printAPItv(newAPI, newInput, newList, template){
             var itemToPrint = {
               itemTitle: objectsInfo.name,
               itemOriginalTitle: objectsInfo.original_name,
-              itemOriginalLanguage: objectsInfo.original_language,
+              itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
               itemVote: getStarsVote(objectsInfo.vote_average),
               itemType: 'Serie TV'
             }
@@ -187,7 +187,7 @@ function getStarsVote(num){
   // definisco le icone
   var stars = '<i class="far fa-star"></i>';
   var starsVote = '<i class="fas fa-star"></i>';
-  // definisco quello che sarà il markup al posto del numero
+  // variabile sulla quale costruisco il markup
   var vote = '';
   // ciclo for per assegnare al markup i numeri convertiti in stelle
   for ( var i = 0; i < 5; i++ ) {
@@ -199,4 +199,18 @@ function getStarsVote(num){
     }
   }
   return vote;
+};
+
+// Funzione che converte lingua in bandiera corrispondente
+function getLanguageFlag(language){
+  // variabile sulla quale costruisco il markup
+  var flag = '';
+  // avendo solo due bandiere a disposizione, se la lingua non corrisponde a una di queste viene visualizzata come testo
+  if ( language == 'en' || language == 'it' ) {
+    flag = '<img class="language-flag" src="' + 'img/' + language + '.svg' + '" + alt="' + language + '">';
+  }
+  else {
+    flag = language;
+  }
+  return flag;
 };
