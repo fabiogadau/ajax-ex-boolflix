@@ -75,7 +75,8 @@ function printAPIMovies(newAPI, newInput, newList, template){
           itemTitle: objectsInfo.title,
           itemOriginalTitle: objectsInfo.original_title,
           itemOriginalLanguage: objectsInfo.original_language,
-          itemVote: objectsInfo.vote_average
+          itemVote: objectsInfo.vote_average,
+          itemType: 'Film'
         }
         // Stampo i nuovi oggetti
         var html = template(itemToPrint);
@@ -114,7 +115,8 @@ function printAPItv(newAPI, newInput, newList, template){
           itemTitle: objectsInfo.name,
           itemOriginalTitle: objectsInfo.original_name,
           itemOriginalLanguage: objectsInfo.original_language,
-          itemVote: objectsInfo.vote_average
+          itemVote: objectsInfo.vote_average,
+          itemType: 'Serie TV'
         }
         // Stampo i nuovi oggetti
         var html = template(itemToPrint);
