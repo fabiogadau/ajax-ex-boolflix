@@ -11,19 +11,33 @@
 </head>
 <body>
   
-  <input type="text" placeholder="Inserisci titolo film" class="search-movie_input">
-  <button class="search-movie_btn">Cerca</button>
-  <ul class="movie-list"></ul>
+  <input type="text" placeholder="Inserisci titolo opera" class="search-input">
+  <button class="search-btn">Cerca</button>
+  <div class="movie-tv_container"></div>
 
   <!-- Template Handlebars -->
-  <script id="movie-template" type="text/x-handlebars-template">
-    <li class="{{ movieClass }}" data-movie="{{ movieData }}">
-      <img src="{{ moviePoster }}" alt="">
-      <span>Titolo: {{ movieTitle }}</span>
-      <span>Titolo originale: {{ movieOriginalTitle }}</span>
-      <span>Lingua Originale: {{ movieOriginalLanguage }}</span>
-      <span>Voto: {{ movieVote }}</span>
-    </li>
+  <script id="movie-tv_template" type="text/x-handlebars-template">
+    <div class="{{ itemClass }}" data-movie-tv="{{ itemData }}">
+      <img src="{{ itemPoster }}" alt="">
+      <ul>
+        <li>
+          <span>Titolo: </span>
+          <span>{{ itemTitle }}</span>
+        </li>
+        <li>
+          <span>Titolo originale: </span>
+          <span>{{ itemOriginalTitle }}</span>
+        </li>
+        <li>
+          <span>Lingua Originale: </span>
+          <span>{{ itemOriginalLanguage }}</span>
+        </li>
+        <li>
+          <span>Voto: </span>
+          <span>{{ itemVote }}</span>
+        </li>
+      </ul>
+    </div>
   </script>
 
   <!-- JS -->
