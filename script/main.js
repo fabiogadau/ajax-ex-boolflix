@@ -115,7 +115,7 @@ function printAPIMovies(newAPI, newInput, newList, template){
     }); // Fine chiamata AJAX
   } // Fine if
   else {
-    alert('Prego, inserire valore');
+    newList.append('<span>Prego, inserire un titolo valido</span>');
     newInput.focus();
   } // Fine else
 };
@@ -160,7 +160,7 @@ function printAPItv(newAPI, newInput, newList, template){
           } // Fine ciclo for
         } // Fine if
         else {
-          newList.append('<span>Nessuna serie TV trovata</span>');
+          newList.append('<span>Nessuna serie TV trovata</span><br>');
           newInput.select();
         } // Fine else
       }, // Fine success
@@ -170,7 +170,7 @@ function printAPItv(newAPI, newInput, newList, template){
     }); // Fine chiamata AJAX
   } // Fine if
   else {
-    alert('Prego, inserire valore');
+    newList.append('<span>Prego, inserire un titolo valido</span>');
     newInput.focus();
   } // Fine else
 };
