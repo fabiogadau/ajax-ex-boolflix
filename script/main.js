@@ -96,7 +96,7 @@ function printAPIMovies(newAPI, newInput, newList, template){
               itemTitle: objectsInfo.title,
               itemOriginalTitle: objectsInfo.original_title,
               itemOriginalLanguage: objectsInfo.original_language,
-              itemVote: objectsInfo.vote_average,
+              itemVote: getStarsVote(objectsInfo.vote_average),
               itemType: 'Film'
             }
             // Stampo i nuovi oggetti
@@ -151,7 +151,7 @@ function printAPItv(newAPI, newInput, newList, template){
               itemTitle: objectsInfo.name,
               itemOriginalTitle: objectsInfo.original_name,
               itemOriginalLanguage: objectsInfo.original_language,
-              itemVote: objectsInfo.vote_average,
+              itemVote: getStarsVote(objectsInfo.vote_average),
               itemType: 'Serie TV'
             }
             // Stampo i nuovi oggetti
@@ -178,4 +178,25 @@ function printAPItv(newAPI, newInput, newList, template){
 // Funzione reset markup
 function resetText(newElement){
   newElement.text('');
+};
+
+// Funzione che converte numeri in icona fontawesome
+function getStarsVote(num){
+  // arrotondo numero per eccesso
+  var newNum = Math.round(num) / 2;
+  // definisco le icone
+  var stars = '<i class="far fa-star"></i>';
+  var starsVote = '<i class="fas fa-star"></i>';
+  // definisco quello che sarà il markup al posto del numero
+  var vote = '';
+  // ciclo for per assegnare al markup i numeri convertiti in stelle
+  for ( var i = 0; i < 5; i++ ) {
+    if ( newNum > i ) {
+      vote = vote + starsVote;
+    }
+    else {
+      vote = vote + stars;
+    }
+  }
+  return vote;
 };
