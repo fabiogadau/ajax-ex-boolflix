@@ -105,7 +105,7 @@ function printAPIMovies(newAPI, newInput, newList, template){
           } // Fine ciclo for
         } // Fine if
         else {
-          alert('Nessun titolo trovato');
+          newList.append('<span>Nessun film trovato</span><br>');
           newInput.select();
         } // Fine else
       }, // Fine success
@@ -160,7 +160,7 @@ function printAPItv(newAPI, newInput, newList, template){
           } // Fine ciclo for
         } // Fine if
         else {
-          alert('Nessun titolo trovato');
+          newList.append('<span>Nessuna serie TV trovata</span>');
           newInput.select();
         } // Fine else
       }, // Fine success
