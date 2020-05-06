@@ -85,29 +85,7 @@ function printAPIMovies(newAPI, newInput, newList, template){
       success: function(result){
         // Array contenente gli oggetti
         var objects = result.results;
-        // Validazione in caso di titolo non trovato
-        if ( objects.length > 0 ) {
-          // Ciclo for per definire gli oggetti e stamparli
-          for ( var i = 0; i < objects.length; i++ ) {
-            // dati degli oggetti
-            var objectsInfo = objects[i];
-            // copio i dati nei nuovi oggetti
-            var itemToPrint = {
-              itemTitle: objectsInfo.title,
-              itemOriginalTitle: objectsInfo.original_title,
-              itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
-              itemVote: getStarsVote(objectsInfo.vote_average),
-              itemType: 'Film'
-            }
-            // Stampo i nuovi oggetti
-            var html = template(itemToPrint);
-            newList.append(html);
-          } // Fine ciclo for
-        } // Fine if
-        else {
-          newList.append('<span>Nessun film trovato</span><br>');
-          newInput.select();
-        } // Fine else
+        printMovie(objects, newList, template);
       }, // Fine success
       error: function(){
         console.log('Si è verificato un errore');
@@ -140,29 +118,7 @@ function printAPItv(newAPI, newInput, newList, template){
       success: function(result){
         // Array contenente gli oggetti
         var objects = result.results;
-        // Validazione in caso di titolo non trovato
-        if ( objects.length > 0 ) {
-          // Ciclo for per definire gli oggetti e stamparli
-          for ( var i = 0; i < objects.length; i++ ) {
-            // dati degli oggetti
-            var objectsInfo = objects[i];
-            // copio i dati nei nuovi oggetti
-            var itemToPrint = {
-              itemTitle: objectsInfo.name,
-              itemOriginalTitle: objectsInfo.original_name,
-              itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
-              itemVote: getStarsVote(objectsInfo.vote_average),
-              itemType: 'Serie TV'
-            }
-            // Stampo i nuovi oggetti
-            var html = template(itemToPrint);
-            newList.append(html);
-          } // Fine ciclo for
-        } // Fine if
-        else {
-          newList.append('<span>Nessuna serie TV trovata</span><br>');
-          newInput.select();
-        } // Fine else
+        printTV(objects, newList, template);
       }, // Fine success
       error: function(){
         console.log('Si è verificato un errore');
@@ -213,4 +169,56 @@ function getLanguageFlag(language){
     flag = language;
   }
   return flag;
+};
+
+function printMovie(objects, newList, template){
+  // Validazione in caso di titolo non trovato
+  if ( objects.length > 0 ) {
+    // Ciclo for per definire gli oggetti e stamparli
+    for ( var i = 0; i < objects.length; i++ ) {
+      // dati degli oggetti
+      var objectsInfo = objects[i];
+      // copio i dati nei nuovi oggetti
+      var itemToPrint = {
+        itemTitle: objectsInfo.title,
+        itemOriginalTitle: objectsInfo.original_title,
+        itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
+        itemVote: getStarsVote(objectsInfo.vote_average),
+        itemType: 'Film'
+      }
+      // Stampo i nuovi oggetti
+      var html = template(itemToPrint);
+      newList.append(html);
+    } // Fine ciclo for
+  } // Fine if
+  else {
+    newList.append('<span>Nessun film trovato</span><br>');
+    newInput.select();
+  } // Fine else
+};
+
+function printTV(objects, newList, template){
+  // Validazione in caso di titolo non trovato
+  if ( objects.length > 0 ) {
+    // Ciclo for per definire gli oggetti e stamparli
+    for ( var i = 0; i < objects.length; i++ ) {
+      // dati degli oggetti
+      var objectsInfo = objects[i];
+      // copio i dati nei nuovi oggetti
+      var itemToPrint = {
+        itemTitle: objectsInfo.name,
+        itemOriginalTitle: objectsInfo.original_name,
+        itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
+        itemVote: getStarsVote(objectsInfo.vote_average),
+        itemType: 'Serie TV'
+      }
+      // Stampo i nuovi oggetti
+      var html = template(itemToPrint);
+      newList.append(html);
+    } // Fine ciclo for
+  } // Fine if
+  else {
+    newList.append('<span>Nessuna serie TV trovata</span><br>');
+    newInput.select();
+  } // Fine else
 };
