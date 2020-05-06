@@ -11,13 +11,29 @@
 </head>
 <body>
   
-  <input type="text" placeholder="Inserisci titolo opera" class="search-input">
-  <button class="search-btn">Cerca</button>
-  <div class="movie-tv_container"></div>
+  <!-- General container -->
+  <div id="app">
+    
+    <!-- Header -->
+    <header>
+      <!-- Title -->
+      <img src="https://fontmeme.com/permalink/200506/853bcd88bedd90cc03f3cc698398c19d.png" alt="boolflix-logo">
+      <!-- Input -->
+      <div class="input-container">
+        <input type="text" placeholder="Titolo" class="search-input">
+        <i class="fas fa-search search-btn"></i>
+      </div>
+    </header>
+    
+    <!-- Main content -->
+    <main class="movie-tv_container"></main>
+ 
+  </div>
+  
 
   <!-- Template Handlebars -->
   <script id="movie-tv_template" type="text/x-handlebars-template">
-    <div class="{{ itemClass }}" data-movie-tv="{{ itemData }}">
+    <div class="movie-tv" data-movie-tv="{{ itemData }}">
       <img src="{{ itemPoster }}" alt="">
       <ul>
         <li>
