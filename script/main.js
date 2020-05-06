@@ -29,6 +29,30 @@ Riferimento template:
  
 Allarghiamo poi la ricerca anche alle serie tv. Con la stessa azione di ricerca 
 dovremo prendere sia i film che corrispondono alla query, sia le serie tv, stando attenti ad avere alla fine dei valori simili (le serie e i film hanno campi nel JSON di risposta diversi, simili ma non sempre identici).
+
+- Milestone 3: 
+In questa milestone come prima cosa  faremo un refactor delle chiamate ajax 
+creando un’unica funzione alla quale passeremo la url, la apy key, la query, il 
+type, ecc… In questo modo potremo chiamare la ricerca sia con il keypress su 
+enter che con il click. 
+ 
+Poi, aggiungiamo la copertina del film o della serie al nostro elenco. Ci viene passata 
+dall’API solo la parte finale dell’URL, questo perché poi potremo generare da quella 
+porzione di URL tante dimensioni diverse. Dovremo prendere quindi l’URL base 
+delle immagini di TMDB: https://image.tmdb.org/t/p/ per poi aggiungere la 
+dimensione che vogliamo generare (troviamo tutte le dimensioni possibili a questo 
+link: https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400) per poi 
+aggiungere la parte finale dell’URL passata dall’API.
+
+- Milestone 4: 
+Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp, 
+creando un layout completo simil-Netflix: 
+● Un header che contiene logo e search bar 
+● Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma 
+di “card” in cui lo sfondo è rappresentato dall’immagine di copertina (consiglio 
+la poster_path con w342) 
+● Andando con il mouse sopra una card (on hover), appaiono le informazioni 
+aggiuntive già prese nei punti precedenti più la overview 
 */
 
 $(document).ready(function() {
@@ -46,15 +70,15 @@ $(document).ready(function() {
 
   // Al click del bottone viene eseguito il seguente codice
   searchBtn.click(function(){
-    printAPIMovies(moviesAPI, searchInput, movieTvList, template);
-    printAPItv(tvAPI, searchInput, movieTvList, template);
+    printAPIData(moviesAPI, searchInput, movieTvList, template, 'Film');
+    printAPIData(tvAPI, searchInput, movieTvList, template, 'Serie TV');
   });
 
   // Al keyup del tasto Invio viene eseguito il seguente codice
   searchInput.keyup(function(event){
     if ( event.which == 13 || event.keyCode == 13 ) {
-      printAPIMovies(moviesAPI, searchInput, movieTvList, template);
-      printAPItv(tvAPI, searchInput, movieTvList, template);
+      printAPIData(moviesAPI, searchInput, movieTvList, template, 'Film');
+      printAPIData(tvAPI, searchInput, movieTvList, template, 'Serie TV');
     }
   });
 
@@ -66,7 +90,7 @@ $(document).ready(function() {
 *******************/
 
 // Funzione che chiama API e stampa film
-function printAPIMovies(newAPI, newInput, newList, template){
+function printAPIData(newAPI, newInput, newList, template, type){
   // Azzeramento iniziale lista per visualizzare solo titoli cercati
   resetText(newList);
   // Titolo cercato
@@ -85,40 +109,14 @@ function printAPIMovies(newAPI, newInput, newList, template){
       success: function(result){
         // Array contenente gli oggetti
         var objects = result.results;
-        printMovie(objects, newList, template);
-      }, // Fine success
-      error: function(){
-        console.log('Si è verificato un errore');
-      } // Fine error
-    }); // Fine chiamata AJAX
-  } // Fine if
-  else {
-    newList.append('<span>Prego, inserire un titolo valido</span>');
-    newInput.focus();
-  } // Fine else
-};
-
-// Funzione che chiama API e stampa serie tv
-function printAPItv(newAPI, newInput, newList, template){
-  // Azzeramento iniziale lista per visualizzare solo titoli cercati
-  resetText(newList);
-  // Titolo cercato
-  var newSearch = newInput.val().trim().toLowerCase();
-  // Validazione in caso di input vuoto
-  if ( newSearch !== '' ) {
-    // Chiamata AJAX
-    $.ajax({
-      url: newAPI,
-      method: 'GET',
-      data: {
-        api_key: '6f57d63573fa7a5d41001c1a27914d68',
-        query: newSearch,
-        language: 'it-IT'
-      },
-      success: function(result){
-        // Array contenente gli oggetti
-        var objects = result.results;
-        printTV(objects, newList, template);
+         // Validazione e print
+        if ( objects.length > 0 ) {
+          printObjects(objects, newList, template, type);
+        } // Fine if
+        else {
+          newList.append('<span>Nessun titolo trovato</span>');
+          newInput.select();
+        } // Fine else
       }, // Fine success
       error: function(){
         console.log('Si è verificato un errore');
@@ -134,6 +132,37 @@ function printAPItv(newAPI, newInput, newList, template){
 // Funzione reset markup
 function resetText(newElement){
   newElement.text('');
+};
+
+// Funzione che stampa gli oggetti
+function printObjects(objects, newList, template, type){
+  // Ciclo for per definire gli oggetti e stamparli
+  for ( var i = 0; i < objects.length; i++ ) {
+    // dati degli oggetti
+    var objectsInfo = objects[i];
+    // variabili che assegneranno i titoli
+    var title, originalTitle;
+    // conditional che prende il titolo in caso di film o serie tv
+    if ( type == 'Film' ) {
+      title = objectsInfo.title;
+      originalTitle = objectsInfo.original_title;
+    }
+    else if ( type == 'Serie TV' ) {
+      title = objectsInfo.name;
+      originalTitle = objectsInfo.original_name;
+    }
+    // copio i dati nei nuovi oggetti
+    var itemToPrint = {
+      itemTitle: title,
+      itemOriginalTitle: originalTitle,
+      itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
+      itemVote: getStarsVote(objectsInfo.vote_average),
+      itemType: type
+    }
+    // Stampo i nuovi oggetti
+    var html = template(itemToPrint);
+    newList.append(html);
+  } // Fine ciclo for
 };
 
 // Funzione che converte numeri in icona fontawesome
@@ -173,56 +202,4 @@ function getLanguageFlag(language){
     flag = language;
   }
   return flag;
-};
-
-function printMovie(objects, newList, template){
-  // Validazione in caso di titolo non trovato
-  if ( objects.length > 0 ) {
-    // Ciclo for per definire gli oggetti e stamparli
-    for ( var i = 0; i < objects.length; i++ ) {
-      // dati degli oggetti
-      var objectsInfo = objects[i];
-      // copio i dati nei nuovi oggetti
-      var itemToPrint = {
-        itemTitle: objectsInfo.title,
-        itemOriginalTitle: objectsInfo.original_title,
-        itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
-        itemVote: getStarsVote(objectsInfo.vote_average),
-        itemType: 'Film'
-      }
-      // Stampo i nuovi oggetti
-      var html = template(itemToPrint);
-      newList.append(html);
-    } // Fine ciclo for
-  } // Fine if
-  else {
-    newList.append('<span>Nessun film trovato</span><br>');
-    newInput.select();
-  } // Fine else
-};
-
-function printTV(objects, newList, template){
-  // Validazione in caso di titolo non trovato
-  if ( objects.length > 0 ) {
-    // Ciclo for per definire gli oggetti e stamparli
-    for ( var i = 0; i < objects.length; i++ ) {
-      // dati degli oggetti
-      var objectsInfo = objects[i];
-      // copio i dati nei nuovi oggetti
-      var itemToPrint = {
-        itemTitle: objectsInfo.name,
-        itemOriginalTitle: objectsInfo.original_name,
-        itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
-        itemVote: getStarsVote(objectsInfo.vote_average),
-        itemType: 'Serie TV'
-      }
-      // Stampo i nuovi oggetti
-      var html = template(itemToPrint);
-      newList.append(html);
-    } // Fine ciclo for
-  } // Fine if
-  else {
-    newList.append('<span>Nessuna serie TV trovata</span><br>');
-    newInput.select();
-  } // Fine else
 };
