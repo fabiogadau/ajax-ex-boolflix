@@ -159,10 +159,14 @@ function getStarsVote(num){
 
 // Funzione che converte lingua in bandiera corrispondente
 function getLanguageFlag(language){
-  // variabile sulla quale costruisco il markup
+  // variabili sulle quali costruisco il markup
+  var lang = [
+    'en',
+    'it'
+  ];
   var flag = '';
   // avendo solo due bandiere a disposizione, se la lingua non corrisponde a una di queste viene visualizzata come testo
-  if ( language == 'en' || language == 'it' ) {
+  if ( lang.includes(language) ) {
     flag = '<img class="language-flag" src="' + 'img/' + language + '.svg' + '" + alt="' + language + '">';
   }
   else {
