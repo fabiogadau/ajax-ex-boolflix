@@ -157,7 +157,8 @@ function printObjects(objects, newList, template, type){
       itemOriginalTitle: originalTitle,
       itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
       itemVote: getStarsVote(objectsInfo.vote_average),
-      itemType: type
+      itemType: type,
+      itemPoster: getPoster(objectsInfo.poster_path)
     }
     // Stampo i nuovi oggetti
     var html = template(itemToPrint);
@@ -202,4 +203,18 @@ function getLanguageFlag(language){
     flag = language;
   }
   return flag;
+};
+
+// Funzione che ottiene immagine corrispondente all'elemento
+function getPoster(poster){
+  // variabile che sarà l'immagine visualizzata
+  var img;
+  // conditional in caso di immagine non presente
+  if ( poster == null ) {
+    img = 'img/no-poster.png';
+  }
+  else {
+    img = 'https://image.tmdb.org/t/p/w342' + poster;
+  }
+  return img;
 };
