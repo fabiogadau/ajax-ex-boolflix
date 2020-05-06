@@ -66,27 +66,26 @@ header {
 }
 
 .movie-tv {
-  margin-bottom: 20px;
-}
-
-.movie-tv img {
   position: relative;
+  margin-bottom: 20px;
 }
 
 .movie-tv ul {
   position: absolute;
-  top: 25%;
+  top: 0;
+  left: 0;
   width: 342px;
   min-height: 515px;
   padding: 10px 5px;
-  background-color: rgba(20, 20, 20, 0);
-  color: rgba(255, 255, 255, 0);
+  background-color: rgba(20, 20, 20, 0.6);
+  color: rgba(255, 255, 255, 1);
   list-style: none;
+  opacity: 0;
+  transition: opacity .2s linear;
 }
 
 .movie-tv ul:hover {
-  background-color: rgba(20, 20, 20, 0.6);
-  color: rgba(255, 255, 255, 1);
+  opacity: 1;
 }
 
 .language-flag {
