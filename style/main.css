@@ -69,8 +69,24 @@ header {
   margin-bottom: 20px;
 }
 
+.movie-tv img {
+  position: relative;
+}
+
 .movie-tv ul {
+  position: absolute;
+  top: 25%;
+  width: 342px;
+  min-height: 515px;
+  padding: 10px 5px;
+  background-color: rgba(20, 20, 20, 0);
+  color: rgba(255, 255, 255, 0);
   list-style: none;
+}
+
+.movie-tv ul:hover {
+  background-color: rgba(20, 20, 20, 0.6);
+  color: rgba(255, 255, 255, 1);
 }
 
 .language-flag {

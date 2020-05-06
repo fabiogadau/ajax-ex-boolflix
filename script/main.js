@@ -158,7 +158,8 @@ function printObjects(objects, newList, template, type){
       itemOriginalLanguage: getLanguageFlag(objectsInfo.original_language),
       itemVote: getStarsVote(objectsInfo.vote_average),
       itemType: type,
-      itemPoster: getPoster(objectsInfo.poster_path)
+      itemPoster: getPoster(objectsInfo.poster_path),
+      itemOverview: objectsInfo.overview.substr(0, 800)
     }
     // Stampo i nuovi oggetti
     var html = template(itemToPrint);
