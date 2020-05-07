@@ -85,6 +85,7 @@ header {
   padding: 50px 100px;
   background-color: #141414;
   color: #fff;
+  overflow: auto;
 }
 
 .movie-tv {
