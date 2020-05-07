@@ -115,6 +115,7 @@ function printAPIData(newAPI, newInput, newList, newList2, template, type){
           printObjects(objects, newList, template, type);
         } // Fine if
         else {
+          // se non sono presenti film o serie tv viene visualizzato il seguente messaggio
           if ( type == 'Film' ) {
             newList2.children('span').remove();
             newList2.append('<span>Nessun titolo trovato nella categoria ' + type + '</span>');

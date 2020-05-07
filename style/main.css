@@ -31,6 +31,7 @@ header {
 
 /* Input */
 .search-input {
+  width: 200px;
   padding: 10px 15px;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -39,18 +40,34 @@ header {
   outline: none;
   border: none;
   color: #141414;
+  transition: 
+    background-color .2s linear,
+    color .2s linear,
+    outline .2s linear,
+    width .2s linear;
 }
 
-.search-input:focus {
+.search-input:focus,
+.search-input:hover {
   background-color: #141414;
   color: #fff;
   outline: 2px solid#fff;
+  width: 300px;
 }
 
 .search-btn {
   font-size: 20px;
   color: #dc1a28;
   cursor: pointer;
+}
+
+/* Movies or TV Series not found Message */
+.movie-tv_count {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #141414;
+  color: #fff;
 }
 
 /* Main content */
@@ -61,14 +78,6 @@ header {
   align-items: center;
   flex-wrap: wrap;
   padding: 50px 100px;
-  background-color: #141414;
-  color: #fff;
-}
-
-.movie-tv_count {
-  width: 100%;
-  padding: 10px 0;
-  text-align: center;
   background-color: #141414;
   color: #fff;
 }
