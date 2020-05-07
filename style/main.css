@@ -59,6 +59,11 @@ header {
   font-size: 20px;
   color: #dc1a28;
   cursor: pointer;
+  transition: color .2s linear;
+}
+
+.search-btn:hover {
+  color: #ff0012;
 }
 
 /* Movies or TV Series not found Message */
@@ -84,7 +89,7 @@ header {
 
 .movie-tv {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .movie-tv ul {

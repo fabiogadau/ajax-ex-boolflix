@@ -76,7 +76,7 @@ $(document).ready(function() {
   });
 
   // Al keyup del tasto Invio viene eseguito il seguente codice
-  searchInput.keyup(function(event){
+  searchInput.keypress(function(event){
     if ( event.which == 13 || event.keyCode == 13 ) {
       printAPIData(moviesAPI, searchInput, movieTvList, movieTvCount, template, 'Film');
       printAPIData(tvAPI, searchInput, movieTvList, movieTvCount, template, 'Serie TV');
@@ -133,7 +133,9 @@ function printAPIData(newAPI, newInput, newList, newList2, template, type){
     }); // Fine chiamata AJAX
   } // Fine if
   else {
-    newList.append('<span>Prego, inserire un titolo valido</span>');
+    // gestione input vuoto
+    newList2.children('span').remove();
+    newList2.append('<span>Prego, inserire un titolo valido</span>');
     newInput.focus();
   } // Fine else
 };
@@ -168,7 +170,7 @@ function printObjects(objects, newList, template, type){
       itemVote: getStarsVote(objectsInfo.vote_average),
       itemType: type,
       itemPoster: getPoster(objectsInfo.poster_path),
-      itemOverview: objectsInfo.overview.substr(0, 800)
+      itemOverview: getString(objectsInfo.overview.substr(0, 800))
     }
     // Stampo i nuovi oggetti
     var html = template(itemToPrint);
@@ -227,4 +229,18 @@ function getPoster(poster){
     img = 'https://image.tmdb.org/t/p/w342' + poster;
   }
   return img;
+};
+
+// Funziona che ritorna uuna stringa
+function getString(string){
+  // variabile che sarà la stringa visualizzata
+  var newString;
+  // validazione in caso di stringa non presente
+  if ( string == false ) {
+    newString = 'Nessuna trama disponibile'
+  }
+  else {
+    newString = string;
+  }
+  return newString;
 };
