@@ -26,6 +26,9 @@
         <i class="fas fa-search search-btn"></i>
       </div>
     </header>
+
+    <!-- No movies or TV Series found Message -->
+    <div class="movie-tv_count"></div>
     
     <!-- Main content -->
     <main class="movie-tv_container"></main>
@@ -39,27 +42,27 @@
       <img src="{{ itemPoster }}" alt="">
       <ul>
         <li>
-          <span>Titolo: </span>
+          <span class="movie-tv_description">Titolo: </span>
           <span>{{ itemTitle }}</span>
         </li>
         <li>
-          <span>Titolo originale: </span>
+          <span class="movie-tv_description">Titolo originale: </span>
           <span>{{ itemOriginalTitle }}</span>
         </li>
         <li>
-          <span>Lingua Originale: </span>
+          <span class="movie-tv_description">Lingua Originale: </span>
           <span>{{{ itemOriginalLanguage }}}</span>
         </li>
         <li>
-          <span>Voto: </span>
+          <span class="movie-tv_description">Voto: </span>
           <span>{{{ itemVote }}}</span>
         </li>
         <li>
-          <span>Tipo: </span>
+          <span class="movie-tv_description">Tipo: </span>
           <span>{{ itemType }}</span>
         </li>
         <li>
-          <span>Sinossi: </span>
+          <span class="movie-tv_description">Sinossi: </span>
           <span>{{ itemOverview }}</span>
         </li>
       </ul>

@@ -65,6 +65,14 @@ header {
   color: #fff;
 }
 
+.movie-tv_count {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #141414;
+  color: #fff;
+}
+
 .movie-tv {
   position: relative;
   margin-bottom: 20px;
@@ -77,7 +85,7 @@ header {
   width: 342px;
   min-height: 515px;
   padding: 10px 5px;
-  background-color: rgba(20, 20, 20, 0.6);
+  background-color: rgba(20, 20, 20, 0.8);
   color: rgba(255, 255, 255, 1);
   list-style: none;
   opacity: 0;
@@ -86,6 +94,14 @@ header {
 
 .movie-tv ul:hover {
   opacity: 1;
+}
+
+.movie-tv_description {
+  color: #dc1a28;
+}
+
+.stars-color {
+  color: goldenrod;
 }
 
 .language-flag {

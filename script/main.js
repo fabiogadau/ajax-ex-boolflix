@@ -61,6 +61,7 @@ $(document).ready(function() {
   var searchInput = $('.search-input');
   var searchBtn = $('.search-btn');
   var movieTvList = $('.movie-tv_container');
+  var movieTvCount = $('.movie-tv_count');
   var moviesAPI = 'https://api.themoviedb.org/3/search/movie';
   var tvAPI = 'https://api.themoviedb.org/3/search/tv';
 
@@ -70,15 +71,15 @@ $(document).ready(function() {
 
   // Al click del bottone viene eseguito il seguente codice
   searchBtn.click(function(){
-    printAPIData(moviesAPI, searchInput, movieTvList, template, 'Film');
-    printAPIData(tvAPI, searchInput, movieTvList, template, 'Serie TV');
+    printAPIData(moviesAPI, searchInput, movieTvList, movieTvCount, template, 'Film');
+    printAPIData(tvAPI, searchInput, movieTvList, movieTvCount, template, 'Serie TV');
   });
 
   // Al keyup del tasto Invio viene eseguito il seguente codice
   searchInput.keyup(function(event){
     if ( event.which == 13 || event.keyCode == 13 ) {
-      printAPIData(moviesAPI, searchInput, movieTvList, template, 'Film');
-      printAPIData(tvAPI, searchInput, movieTvList, template, 'Serie TV');
+      printAPIData(moviesAPI, searchInput, movieTvList, movieTvCount, template, 'Film');
+      printAPIData(tvAPI, searchInput, movieTvList, movieTvCount, template, 'Serie TV');
     }
   });
 
@@ -90,7 +91,7 @@ $(document).ready(function() {
 *******************/
 
 // Funzione che chiama API e stampa film
-function printAPIData(newAPI, newInput, newList, template, type){
+function printAPIData(newAPI, newInput, newList, newList2, template, type){
   // Azzeramento iniziale lista per visualizzare solo titoli cercati
   resetText(newList);
   // Titolo cercato
@@ -114,7 +115,14 @@ function printAPIData(newAPI, newInput, newList, template, type){
           printObjects(objects, newList, template, type);
         } // Fine if
         else {
-          newList.append('<span>Nessun titolo trovato</span>');
+          if ( type == 'Film' ) {
+            newList2.children('span').remove();
+            newList2.append('<span>Nessun titolo trovato nella categoria ' + type + '</span>');
+          }
+          else if ( type == 'Serie TV' ) {
+            newList2.children('span').remove();
+            newList2.append('<span>Nessun titolo trovato nella categoria ' + type + '</span>');
+          }
           newInput.select();
         } // Fine else
       }, // Fine success
@@ -172,8 +180,8 @@ function getStarsVote(num){
   // arrotondo numero per eccesso
   var newNum = Math.round(num) / 2;
   // definisco le icone
-  var stars = '<i class="far fa-star"></i>';
-  var starsVote = '<i class="fas fa-star"></i>';
+  var stars = '<i class="far fa-star stars-color"></i>';
+  var starsVote = '<i class="fas fa-star stars-color"></i>';
   // variabile sulla quale costruisco il markup
   var vote = '';
   // ciclo for per assegnare al markup i numeri convertiti in stelle
