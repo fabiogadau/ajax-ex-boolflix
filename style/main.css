@@ -80,7 +80,7 @@ header {
   flex-grow: 1;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 50px 100px;
   background-color: #141414;
