@@ -96,6 +96,7 @@ function printAPIData(newAPI, newInput, newList, newList2, template, type){
   resetText(newList);
   // Titolo cercato
   var newSearch = newInput.val().trim().toLowerCase();
+  
   // Validazione in caso di input vuoto
   if ( newSearch !== '' ) {
     // Chiamata AJAX
@@ -110,7 +111,8 @@ function printAPIData(newAPI, newInput, newList, newList2, template, type){
       success: function(result){
         // Array contenente gli oggetti
         var objects = result.results;
-         // Validazione e print
+        
+        // Validazione e print
         if ( objects.length > 0 ) {
           printObjects(objects, newList, template, type);
         } // Fine if
@@ -153,6 +155,7 @@ function printObjects(objects, newList, template, type){
     var objectsInfo = objects[i];
     // variabili che assegneranno i titoli
     var title, originalTitle;
+   
     // conditional che prende il titolo in caso di film o serie tv
     if ( type == 'Film' ) {
       title = objectsInfo.title;
@@ -162,6 +165,7 @@ function printObjects(objects, newList, template, type){
       title = objectsInfo.name;
       originalTitle = objectsInfo.original_name;
     }
+    
     // copio i dati nei nuovi oggetti
     var itemToPrint = {
       itemTitle: title,
@@ -172,6 +176,7 @@ function printObjects(objects, newList, template, type){
       itemPoster: getPoster(objectsInfo.poster_path),
       itemOverview: getString(objectsInfo.overview.substr(0, 800))
     }
+    
     // Stampo i nuovi oggetti
     var html = template(itemToPrint);
     newList.append(html);
@@ -187,6 +192,7 @@ function getStarsVote(num){
   var starsVote = '<i class="fas fa-star stars-color"></i>';
   // variabile sulla quale costruisco il markup
   var vote = '';
+  
   // ciclo for per assegnare al markup i numeri convertiti in stelle
   for ( var i = 0; i < 5; i++ ) {
     if ( newNum > i ) {
@@ -196,6 +202,7 @@ function getStarsVote(num){
       vote = vote + stars;
     }
   }
+  
   return vote;
 };
 
@@ -207,13 +214,15 @@ function getLanguageFlag(language){
     'it'
   ];
   var flag = '';
-  // avendo solo due bandiere a disposizione, se la lingua non corrisponde a una di queste viene visualizzata come testo
+ 
+  // avendo solo due bandiere a disposizione, se la lingua non corrisponde a una di queste viene visualizzata come testo  
   if ( lang.includes(language) ) {
     flag = '<img class="language-flag" src="' + 'img/' + language + '.svg' + '" + alt="' + language + '">';
   }
   else {
     flag = language;
   }
+  
   return flag;
 };
 
@@ -221,6 +230,7 @@ function getLanguageFlag(language){
 function getPoster(poster){
   // variabile che sarà l'immagine visualizzata
   var img;
+  
   // conditional in caso di immagine non presente
   if ( poster == null ) {
     img = 'img/no-poster.png';
@@ -228,6 +238,7 @@ function getPoster(poster){
   else {
     img = 'https://image.tmdb.org/t/p/w342' + poster;
   }
+ 
   return img;
 };
 
@@ -235,6 +246,7 @@ function getPoster(poster){
 function getString(string){
   // variabile che sarà la stringa visualizzata
   var newString;
+  
   // validazione in caso di stringa non presente
   if ( string == false ) {
     newString = 'Nessuna trama disponibile'
@@ -242,5 +254,6 @@ function getString(string){
   else {
     newString = string;
   }
+  
   return newString;
 };
